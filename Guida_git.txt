@@ -1,0 +1,184 @@
+GIT - GUIDA SINTETICA AI COMANDI
+================================
+
+1. COS'È GIT
+Git = sistema di controllo versione distribuito. Permette di tracciare modifiche, recuperare versioni precedenti, creare/gestire branch, unire sviluppi paralleli e collaborare tramite repository remoti.
+Aree principali: Working Tree = file del progetto -> Staging Area = modifiche selezionate per il prossimo commit -> Repository = cronologia dei commit.
+
+2. CONFIGURAZIONE
+git config --list -> mostra configurazione
+git config --global user.name "Nome Cognome" -> imposta nome globale
+git config --global user.email "email@example.com" -> imposta email globale
+git config user.name "Nome Cognome" / git config user.email "email@example.com" -> configurazione solo repository corrente
+
+3. REPOSITORY
+git init -> inizializza Git nella cartella corrente e crea .git
+git clone URL -> clona repository remoto + cronologia
+git clone URL nome-cartella -> clona specificando la cartella
+
+4. STATO E MODIFICHE
+git status -> stato del repository
+git diff -> modifiche non nello staging
+git diff --staged -> modifiche nello staging
+git diff COMMIT1 COMMIT2 -> confronto tra commit
+git diff branch1 branch2 -> confronto tra branch
+git add file -> aggiunge file allo staging
+git add . -> aggiunge modifiche
+git add -A -> aggiunge tutte le modifiche, comprese eliminazioni
+git restore --staged file -> rimuove file dallo staging senza cancellarlo
+git restore --staged . -> rimuove tutto dallo staging
+
+5. COMMIT
+git commit -m "messaggio" -> crea commit usando SOLO ciò che è nello staging
+Flusso: git status -> git diff -> git add . -> git status -> git commit -m "tipo: descrizione"
+git commit --amend -m "nuovo messaggio" -> modifica messaggio ultimo commit
+git add . -> git commit --amend -> aggiunge modifiche all'ultimo commit
+--amend è preferibile prima del push; dopo il push può richiedere riscrittura della cronologia.
+
+6. CRONOLOGIA
+git log -> cronologia completa
+git log --oneline -> cronologia compatta
+git log --oneline --graph --decorate --all -> cronologia compatta + grafico + branch
+git log -n 5 -> ultimi 5 commit
+git show ID_COMMIT -> dettagli/modifiche di un commit
+git log --grep="parola" -> cerca nei messaggi dei commit
+git log -S "stringa" -> cerca commit che hanno introdotto/rimosso una stringa
+git blame file -> commit/autore associati alle singole righe
+
+7. BRANCH
+git branch -> branch locali
+git branch -r -> branch remoti
+git branch -a -> tutti i branch
+git branch nome -> crea branch
+git switch -c nome -> crea branch + si sposta su di esso
+git switch nome -> cambia branch
+git branch -d nome -> elimina branch già unito
+git branch -D nome -> forza eliminazione branch
+Branch = linea di sviluppo separata.
+
+8. MERGE E CONFLITTI
+git merge nome-branch -> unisce il branch indicato nel branch corrente
+Conflitto -> modificare manualmente il file -> eliminare <<<<<<< ======= >>>>>>> -> git add file -> git commit
+git merge --abort -> annulla merge in corso
+
+9. REMOTE
+git remote -v -> mostra remote
+git remote add origin URL -> aggiunge remote
+git remote set-url origin URL -> modifica URL
+git remote remove origin -> rimuove remote
+origin = nome convenzionale del repository remoto principale
+
+10. PUSH / FETCH / PULL
+git push -> invia commit al remoto
+git push -u origin nome-branch -> primo push + imposta upstream -> successivamente git push
+git fetch -> scarica informazioni dal remoto senza modificare il branch corrente
+git fetch origin -> fetch da origin
+git pull -> fetch + integrazione nel branch corrente, normalmente tramite merge
+git pull --rebase -> fetch + rebase
+
+11. REBASE
+git switch feature/login -> git rebase main
+Sposta i commit del branch sopra una nuova base e rende la cronologia più lineare.
+ATTENZIONE: riscrive la cronologia -> evitare sui commit già condivisi senza sapere cosa si sta facendo.
+
+12. STASH
+git stash -> mette temporaneamente da parte modifiche locali
+git stash -u -> include file non tracciati
+git stash list -> mostra stash
+git stash pop -> riapplica + elimina ultimo stash
+git stash apply -> riapplica senza eliminarlo
+git stash drop -> elimina uno stash
+git stash clear -> elimina tutti gli stash
+Flusso: git stash -> git switch main -> lavoro -> git switch feature -> git stash pop
+
+13. ANNULLARE MODIFICHE E COMMIT
+git restore file -> elimina modifiche non committate del file
+git restore . -> elimina tutte le modifiche non committate
+ATTENZIONE: le modifiche eliminate possono essere perse.
+
+git reset --soft HEAD~1 -> annulla ultimo commit, modifiche restano nello staging
+git reset HEAD~1 -> annulla ultimo commit, modifiche restano nel working tree fuori staging
+git reset --hard HEAD~1 -> annulla commit + elimina modifiche locali
+ATTENZIONE: reset --hard può causare perdita di dati.
+
+git revert ID_COMMIT -> crea un nuovo commit che annulla quello indicato; preferibile per commit già pubblicati/condivisi perché non riscrive la cronologia.
+
+14. CHERRY-PICK / REFLOG
+git cherry-pick ID_COMMIT -> applica a un branch le modifiche di uno specifico commit senza fare un merge completo
+git reflog -> mostra gli spostamenti di HEAD e permette di recuperare riferimenti a commit apparentemente persi dopo reset/rebase
+
+15. .gitignore
+.gitignore -> indica file/cartelle da non tracciare.
+Esempio: node_modules/ -> .env -> *.log -> dist/ -> coverage/
+Dopo la modifica -> git status
+Se il file è già tracciato: git rm --cached nomefile -> mantiene il file sul computer ma lo rimuove dal tracking Git.
+
+16. FILE
+git mv vecchio.js nuovo.js -> rinomina file
+git rm file.js -> elimina file dal working tree e dal repository al prossimo commit
+
+17. TAG
+git tag v1.0.0 -> crea tag
+git tag -> mostra tag
+git show v1.0.0 -> informazioni sul tag
+git push origin v1.0.0 -> invia tag
+git push origin --tags -> invia tutti i tag
+Versionamento comune: MAJOR.MINOR.PATCH -> esempio v2.1.3
+
+18. CLEAN
+git clean -n -> mostra file non tracciati che verrebbero eliminati
+git clean -f -> elimina file non tracciati
+git clean -fd -> elimina file + directory non tracciate
+ATTENZIONE: operazione distruttiva.
+
+19. SUBMODULE / ALIAS
+git submodule add URL percorso -> aggiunge repository come submodule
+git submodule update --init --recursive -> inizializza/scarica submodule
+git config --global alias.st status -> crea alias -> git st = git status
+
+20. CONVENTIONAL COMMITS
+Formato: tipo: descrizione breve
+Con scope: tipo(scope): descrizione
+feat: -> nuova funzionalità
+fix: -> correzione bug
+refactor: -> riorganizzazione interna senza cambiare comportamento
+test: -> test
+docs: -> documentazione
+style: -> formattazione/stile senza modifiche funzionali
+chore: -> manutenzione/configurazione
+perf: -> prestazioni
+build: -> build/dipendenze
+ci: -> CI/CD
+
+Esempi: feat: aggiunto login utente -> fix: corretto controllo password -> refactor: separata logica controller e repository -> test: aggiunti test per login -> docs: aggiornata documentazione API
+
+Regole: tipo coerente -> descrizione breve e chiara -> descrivere ciò che è stato fatto -> evitare messaggi generici come "modifiche", "sistemato", "varie", "prova", "update" -> un commit dovrebbe rappresentare una modifica logica e coerente.
+
+Commit complesso:
+feat: aggiunto sistema di autenticazione
+
+Implementata la procedura di login con verifica della password e generazione del token JWT.
+
+Breaking change: feat(api)!: modificato formato della risposta
+È possibile aggiungere nel corpo: BREAKING CHANGE: il campo username non viene più restituito dall'API.
+
+21. FLUSSO DI LAVORO
+Nuova funzionalità: git switch main -> git pull -> git switch -c feature/nome-funzionalita -> sviluppo -> git status -> git diff -> git add . -> git commit -m "feat: descrizione" -> git push -u origin feature/nome-funzionalita -> eventuale Pull Request/Merge Request
+
+Progetto già sviluppato: git init -> git add . -> git commit -m "chore: initial commit"
+Non è necessario creare artificialmente commit retroattivi.
+
+22. COMANDI DA RICORDARE
+git status -> stato
+git add . -> staging
+git commit -m "..." -> commit
+git log --oneline --graph --decorate --all -> cronologia
+git switch -c nome -> nuovo branch
+git switch nome -> cambia branch
+git merge nome -> merge
+git pull -> scarica + integra
+git push -> pubblica
+git stash -> accantona modifiche
+git restore file -> annulla modifiche locali
+git revert ID -> annulla con nuovo commit
+git reflog -> recupera riferimenti persi

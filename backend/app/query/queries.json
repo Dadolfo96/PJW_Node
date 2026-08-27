@@ -1,0 +1,13 @@
+{
+  "createUser": "INSERT INTO [PJW_Node].[dbo].[Users] (nome, cognome, mail, username, password, ruolo) VALUES (@nome, @cognome, @mail, @username, @password, @ruolo)",
+  "findUserById": "SELECT * FROM [PJW_Node].[dbo].[Users] WHERE id = @id",
+  "findUserByEmail": "SELECT * FROM [PJW_Node].[dbo].[Users] WHERE mail = @mail",
+  "findAllUsers": "SELECT * FROM [PJW_Node].[dbo].[Users]",
+  "deleteUserById": "DELETE FROM [PJW_Node].[dbo].[Users] WHERE id = @id",
+  "createCard": "INSERT INTO [PJW_Node].[dbo].[Cards] (titolo, sottotitolo, assegnatario, responsabile, id_user_esecutore, note, stato) VALUES (@titolo, @sottotitolo, @assegnatario, @responsabile, @id_user_esecutore, @note, @stato)",
+  "findCardById": "SELECT * FROM [PJW_Node].[dbo].[Cards] WHERE id = @id",
+  "findAllCards": "SELECT * FROM [PJW_Node].[dbo].[Cards]",
+  "deleteCardById": "DELETE FROM [PJW_Node].[dbo].[Cards] WHERE id = @id",
+  "updateCard": "UPDATE [PJW_Node].[dbo].[Cards] SET stato = @stato, titolo = @titolo, sottotitolo = @sottotitolo, assegnatario = @assegnatario, responsabile = @responsabile, id_user_esecutore = @id_user_esecutore, note = @note WHERE id = @id",
+  "updateUser": "UPDATE [PJW_Node].[dbo].[Users] SET nome = @nome, cognome = @cognome, mail = @mail, username = @username, ruolo = @ruolo WHERE id = @id"
+}
