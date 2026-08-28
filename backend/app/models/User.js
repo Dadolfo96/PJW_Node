@@ -43,6 +43,17 @@ class User {
         this.#password = password;
     }
 
+    toJSON() {
+        return {
+            id: this.#id,
+            nome: this.#nome,
+            cognome: this.#cognome,
+            mail: this.#mail,
+            username: this.#username,
+            ruolo: this.#ruolo
+        };
+    }
+
     getId() {
         return this.#id;
     }

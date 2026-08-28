@@ -49,8 +49,19 @@ class Card {
         this.#responsabile = responsabile; 
         this.#id_user_esecutore = id_user_esecutore; 
         this.#note = note; 
-    } 
- 
+    }
+
+    toJSON() {
+        return {
+            id: this.#id,
+            stato: this.#stato,
+            titolo: this.#titolo,
+            sottotitolo: this.#sottotitolo,
+            assegnatario: this.#assegnatario,
+            responsabile: this.#responsabile,
+            id_user_esecutore: this.#id_user_esecutore
+        };
+    }
 
  
     getId() { 

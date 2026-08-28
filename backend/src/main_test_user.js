@@ -1,17 +1,21 @@
 process.loadEnvFile();
 
-const Database = require("../config/Database");
-const UserControllerTest = require("../app/controllers/UserControllerTest");
-const UserRepository = require("../app/repositories/UserRepository");
-const UserService = require("../app/services/UserService");
+const express = require("express");
+
 const AuthController = require("../app/controllers/AuthController");
 const User = require("../app/models/User");
+const Database = require("../config/Database");
+const UserRepository = require("../app/repositories/UserRepository");
+const UserService = require("../app/services/UserService");
+const UserController = require("../app/controllers/UserController");
+
+const router = express.Router();
 
 const database = new Database();
 const userRepository = new UserRepository(database);
 const userService = new UserService(userRepository);
-const userControllerTest = new UserControllerTest(userService);
-const authController = new AuthController(userControllerTest);
+const userController = new UserController(userService);
+
 
 async function main() {
     

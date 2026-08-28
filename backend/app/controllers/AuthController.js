@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
-const { generaToken } = require('C:/Users/d.carulli/progetti/PJW_Node/backend/config/auth.js');
+const bcrypt = require("bcrypt");
+const { generaToken } = require("../../config/auth");
 
 class AuthController {
 
@@ -9,11 +9,17 @@ class AuthController {
         this.#userController = userController;
     }
 
-    async login(email, passwordInChiaro) {
+    async login(req, res) {
+
+        const email = req.body.mail;
+        const passwordInChiaro = req.body.password;
+
         const utente = await this.#userController.findUserByEmail(email);
 
         if (!utente) {
-            throw new Error("Credenziali errate! Utente non registrato.");
+            return res.status(401).json({
+                message: "Credenziali errate! Utente non registrato."
+            });
         }
 
         const corrisponde = await bcrypt.compare(
@@ -22,11 +28,16 @@ class AuthController {
         );
 
         if (!corrisponde) {
-            throw new Error("Credenziali errate! Password errata.");
+            return res.status(401).json({
+                message: "Credenziali errate! Password errata."
+            });
         }
 
         const token = generaToken(utente);
-        return token;
+
+        res.json({
+            token: token
+        });
     }
 }
 
