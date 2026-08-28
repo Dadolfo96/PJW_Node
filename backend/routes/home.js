@@ -5,6 +5,7 @@ const UserRepository = require("../app/repositories/UserRepository");
 const UserService = require("../app/services/UserService");
 const UserController = require("../app/controllers/UserController");
 const AuthController = require("../app/controllers/AuthController");
+const HomeController = require("../app/controllers/HomeController");
 
 const router = express.Router();
 
@@ -15,10 +16,14 @@ const userController = new UserController(userService);
 const authController = new AuthController(userController);
 
 
+
 // GET home
-router.get("/", async (req, res) => {
-    await userController.home(req, res);
+router.get("/home", async (req, res) => {
+
+    await HomeController.homePage(req, res);
+
 });
+
 
 
 // POST registrazione
@@ -33,4 +38,8 @@ router.post("/login", async (req, res) => {
 });
 
 
+
+router.get("/", async (req, res) => {
+    await userController.home_test(req, res);
+});
 module.exports = router;

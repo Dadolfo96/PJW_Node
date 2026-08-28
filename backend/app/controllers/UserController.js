@@ -9,7 +9,7 @@ class UserController {
         this.#userService = userService;
     }
 
-    async home(req, res) {
+    async home_test(req, res) {
 
         res.send("Benvenuto nel server PJW_Node");
     }
