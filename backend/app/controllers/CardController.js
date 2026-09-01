@@ -1,4 +1,6 @@
 const Card = require("../models/Card");
+const path = require("path");
+const renderPage = require("../utils/renderPage");
 
 class CardController {
 
@@ -16,7 +18,7 @@ class CardController {
             req.body.sottotitolo,
             req.body.assegnatario,
             req.body.responsabile,
-            req.body.id_user_esecutore,
+            Number(req.body.id_user_esecutore),
             req.body.note
         );
 
@@ -62,13 +64,16 @@ class CardController {
             req.body.sottotitolo,
             req.body.assegnatario,
             req.body.responsabile,
-            req.body.id_user_esecutore,
-            req.body.id
+            Number(req.body.id_user_esecutore),
+            req.body.note
         );
 
         const updatedCard = await this.#cardService.updateCard(card, id);
 
         res.json(updatedCard);
+    }
+    static boardPage(req, res) {
+        res.send(renderPage("board.html"));
     }
 }
 

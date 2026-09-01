@@ -36,7 +36,8 @@ class AuthController {
         const token = generaToken(utente);
 
         res.json({
-            token: token
+            token: token,
+            ruolo: utente.ruolo
         });
     }
 }

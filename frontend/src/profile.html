@@ -1,0 +1,137 @@
+<script>
+const token = sessionStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "/home";
+}
+
+const authHeaders = {
+    "Authorization": `Bearer ${token}`
+};
+
+
+
+</script>
+
+<main class="container min-vh-100 d-flex align-items-center py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold text-primary">Profilo utente</h1>
+            <p class="lead text-secondary">Gestione utenti</p>
+        </div>
+
+        <div class="row justify-content-center g-4">
+            <!-- logout -->
+            <div class="text-center mb-4">
+                <button type="button" id="logoutButton" class="btn btn-outline-danger">
+                    Logout
+                </button>
+            </div>
+<form id="boardForm">
+    <button type="submit" class="btn btn-primary">
+        Vai alla lavagna
+    </button>
+</form>
+
+
+            <!-- FIND BY ID -->
+            <div id="findUser" class="col-12 col-lg-8">
+                <div class="card shadow border-0 rounded-4">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="fw-bold mb-4">Cerca utente</h2>
+
+                        <form id="findForm">
+                            <div class="mb-3">
+                                <label for="id" class="form-label">ID utente</label>
+                                <input type="number" class="form-control" id="id" name="id" required>
+                            </div>
+
+                            <button type="submit" id="findButton" class="btn btn-primary">
+                                Cerca
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UPDATE BY ID -->
+            <div id="updateUser" class="col-12 col-lg-8">
+                <div class="card shadow border-0 rounded-4">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="fw-bold mb-4">Modifica utente</h2>
+
+                        <form id="updateForm">
+                            <div class="mb-3">
+                                <label for="updateId" class="form-label">ID utente</label>
+                                <input type="number" class="form-control" id="updateId" name="id" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="updateNome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="updateNome" name="nome">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="updateCognome" class="form-label">Cognome</label>
+                                <input type="text" class="form-control" id="updateCognome" name="cognome">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="updateMail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="updateMail" name="mail">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="updateUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="updateUsername" name="username">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="updateRuolo" class="form-label">Ruolo</label>
+                                <input type="text" class="form-control" id="updateRuolo" name="ruolo">
+                            </div>
+
+                            <button type="submit" id="updateButton" class="btn btn-warning">
+                                Modifica
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DELETE BY ID -->
+            <div id= "deleteUser" class="col-12 col-lg-8">
+                <div class="card shadow border-0 rounded-4">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="fw-bold mb-4">Elimina utente</h2>
+
+                        <form id="deleteForm">
+                            <div class="mb-3">
+                                <label for="deleteId" class="form-label">ID utente</label>
+                                <input type="number" class="form-control" id="deleteId" name="id" required>
+                            </div>
+
+                            <button type="submit" id="deleteButton" class="btn btn-danger">
+                                Elimina
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="profileResult" class="alert d-none mt-4"></div>
+    </div>
+</main>
+<script>
+const ruolo = sessionStorage.getItem("ruolo");
+
+if (ruolo !== "Admin") {
+    document.getElementById("findUser").hidden = true;
+    document.getElementById("updateUser").hidden = true;
+    document.getElementById("deleteUser").hidden = true;
+    document.getElementById("deleteForm").hidden = true;
+}
+</script>
+
+<script src="profile.js"></script>

@@ -16,7 +16,8 @@ if (!JWT_SECRET) {
 function generaToken(utente) {
   const payload = { 
     id: utente.id, 
-    username: utente.username 
+    username: utente.username ,
+    ruolo: utente.ruolo
   }; // [7, 8]
   
   // Firma il token usando la chiave segreta (scade in 1 ora) [7, 8]

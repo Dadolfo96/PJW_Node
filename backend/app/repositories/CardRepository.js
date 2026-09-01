@@ -28,7 +28,12 @@ class CardRepository {
     async findCardById(id) {
         const result = await this.#database.query(queries.findCardById, { id: id });
         const row = result.recordset[0];
-
+    
+        if (!row) {
+            return null;
+        }
+        console.log(row);
+        console.log("STATO:", row.stato);
         const card = new Card(
             row.stato,
             row.titolo,
@@ -38,6 +43,7 @@ class CardRepository {
             row.id_user_esecutore,
             row.note
         );
+        console.log(card);
 
         return card;
     }
@@ -54,6 +60,7 @@ class CardRepository {
     async updateCard(card, id) {
         const parameters = {
             id: id,
+            stato: card.getStato(),
             titolo: card.getTitolo(),
             sottotitolo: card.getSottotitolo(),
             assegnatario: card.getAssegnatario(),

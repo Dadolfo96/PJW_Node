@@ -12,6 +12,13 @@ const cardRepository = new CardRepository(database);
 const cardService = new CardService(cardRepository);
 const cardController = new CardController(cardService);
 
+// board acces --> ATTENZIONE: Questa è una rotta specifica e non dinamica 
+// quindi deve andare prima delle rotte dinamiche altrimenti verrebbe 
+// interpretata come valore dinamico andando in conflitto con eventuali 
+// tipi di variabili o paramentri nei metodi dei controller richiamati
+router.get("/board", (req, res) => {
+    CardController.boardPage(req, res);
+});
 
 // GET tutte le card
 router.get("/", async (req, res) => {

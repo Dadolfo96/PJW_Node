@@ -1,14 +1,18 @@
+
 const path = require("path");
+const renderPage = require("../utils/renderPage");
 
 class HomeController {
 
     static homePage(req, res) {
 
-        res.sendFile(
-            path.join(__dirname, "../../../frontend/src/index.html")
-        );
+        res.send(renderPage("index.html"));
 
     }
+
+    static profilePage(req, res) {
+        res.send(renderPage("profile.html"));
+}
 
 }
 

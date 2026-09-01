@@ -7,6 +7,7 @@ const UserController = require("../app/controllers/UserController");
 const AuthController = require("../app/controllers/AuthController");
 const HomeController = require("../app/controllers/HomeController");
 
+
 const router = express.Router();
 
 const database = new Database();
@@ -35,6 +36,11 @@ router.post("/register", async (req, res) => {
 // POST login
 router.post("/login", async (req, res) => {
     await authController.login(req, res);
+});
+
+
+router.get("/profile", (req, res) => {
+    HomeController.profilePage(req, res);
 });
 
 
