@@ -82,6 +82,9 @@ class UserRepository {
 
         return await this.#database.query(queries.updateUser, parameters);
     }
+    async getUserCards(id) {
+        return this.#database.executeUserCards(id);
+    }
 }
 
 module.exports = UserRepository;

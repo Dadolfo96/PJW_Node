@@ -105,6 +105,10 @@ class UserController {
 
         res.json(updatedUser);
     }
+
+    async getUserCards(id) {
+        return this.#userService.getUserCards(Number(id));
+    }        
 }
 
 module.exports = UserController;

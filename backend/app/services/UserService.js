@@ -34,6 +34,9 @@ class UserService {
         const updatedUser = await this.#userRepository.updateUser(user, id);
         return updatedUser;
     }
+    async getUserCards(id) {
+        return this.#userRepository.getUserCards(id);
+    }    
 
     
 }

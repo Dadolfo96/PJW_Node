@@ -37,4 +37,11 @@ router.delete("/:id", async (req, res) => {
 });
 
 
+// GET user-cards tramite ID utente
+router.get("/:id/cards", async (req, res) => {
+    await userController.getUserCards(req, res);
+});
+
+
+
 module.exports = router;
