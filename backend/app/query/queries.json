@@ -4,10 +4,28 @@
   "findUserByEmail": "SELECT * FROM [PJW_Node].[dbo].[Users] WHERE mail = @mail",
   "findAllUsers": "SELECT * FROM [PJW_Node].[dbo].[Users]",
   "deleteUserById": "DELETE FROM [PJW_Node].[dbo].[Users] WHERE id = @id",
-  "createCard": "INSERT INTO [PJW_Node].[dbo].[Cards] (titolo, sottotitolo, assegnatario, responsabile, id_user_esecutore, note, stato) VALUES (@titolo, @sottotitolo, @assegnatario, @responsabile, @id_user_esecutore, @note, @stato)",
+  
+  "createCard": "INSERT INTO [PJW_Node].[dbo].[Cards] (board_id, column_id, swimlane_id, stato, titolo, sottotitolo, assegnatario, responsabile, creatore, id_user_esecutore, note, position, parent_card_id, priority_id, scadenza, data_fine, data_fine_prevista) VALUES (@board_id, @column_id, @swimlane_id, @stato, @titolo, @sottotitolo, @assegnatario, @responsabile, @creatore, @id_user_esecutore, @note, @position, @parent_card_id, @priority_id, @scadenza, @data_fine, @data_fine_prevista)",
   "findCardById": "SELECT * FROM [PJW_Node].[dbo].[Cards] WHERE id = @id",
   "findAllCards": "SELECT * FROM [PJW_Node].[dbo].[Cards]",
   "deleteCardById": "DELETE FROM [PJW_Node].[dbo].[Cards] WHERE id = @id",
-  "updateCard": "UPDATE [PJW_Node].[dbo].[Cards] SET stato = @stato, titolo = @titolo, sottotitolo = @sottotitolo, assegnatario = @assegnatario, responsabile = @responsabile, id_user_esecutore = @id_user_esecutore, note = @note WHERE id = @id",
-  "updateUser": "UPDATE [PJW_Node].[dbo].[Users] SET nome = @nome, cognome = @cognome, mail = @mail, username = @username, ruolo = @ruolo WHERE id = @id"
+  "updateCard": "UPDATE [PJW_Node].[dbo].[Cards] SET board_id = @board_id, column_id = @column_id, swimlane_id = @swimlane_id, stato = @stato, titolo = @titolo, sottotitolo = @sottotitolo, assegnatario = @assegnatario, responsabile = @responsabile, creatore = @creatore, id_user_esecutore = @id_user_esecutore, note = @note, position = @position, parent_card_id = @parent_card_id, priority_id = @priority_id, scadenza = @scadenza, data_fine = @data_fine, data_fine_prevista = @data_fine_prevista WHERE id = @id",
+
+  "createBoard": "INSERT INTO [PJW_Node].[dbo].[Boards] (workspace_id, project_id, nome) VALUES (@workspace_id, @project_id, @nome)",
+  "findBoardById": "SELECT * FROM [PJW_Node].[dbo].[Boards] WHERE id = @id",
+  "findAllBoards": "SELECT * FROM [PJW_Node].[dbo].[Boards]",
+  "deleteBoardById": "DELETE FROM [PJW_Node].[dbo].[Boards] WHERE id = @id",
+  "updateBoard": "UPDATE [PJW_Node].[dbo].[Boards] SET workspace_id = @workspace_id, project_id = @project_id, nome = @nome WHERE id = @id",
+
+  "createColumn": "INSERT INTO [PJW_Node].[dbo].[Columns] (nome, wip_limit) VALUES (@nome, @wip_limit)",
+  "findColumnById": "SELECT * FROM [PJW_Node].[dbo].[Columns] WHERE id = @id",
+  "findAllColumns": "SELECT * FROM [PJW_Node].[dbo].[Columns]",
+  "deleteColumnById": "DELETE FROM [PJW_Node].[dbo].[Columns] WHERE id = @id",
+  "updateColumn": "UPDATE [PJW_Node].[dbo].[Columns] SET nome = @nome, wip_limit = @wip_limit WHERE id = @id",
+
+  "createSwimlane": "INSERT INTO [PJW_Node].[dbo].[Swimlanes] (nome) VALUES (@nome)",
+  "findSwimlaneById": "SELECT * FROM [PJW_Node].[dbo].[Swimlanes] WHERE id = @id",
+  "findAllSwimlanes": "SELECT * FROM [PJW_Node].[dbo].[Swimlanes]",
+  "deleteSwimlaneById": "DELETE FROM [PJW_Node].[dbo].[Swimlanes] WHERE id = @id",
+  "updateSwimlane": "UPDATE [PJW_Node].[dbo].[Swimlanes] SET nome = @nome WHERE id = @id"
 }

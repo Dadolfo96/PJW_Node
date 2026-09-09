@@ -1,28 +1,31 @@
-const Swimlane=require("../models/Swimlane");
 class SwimlaneService {
-    #repository;
-    constructor(repository) {
-        this.#repository=repository;
+    #swimlaneRepository;
+    constructor(swimlaneRepository) {
+        this.#swimlaneRepository = swimlaneRepository;
     }
-    async findAll() {
-        const rows=await this.#repository.findAll();
-        return rows.map(row=>Swimlane.fromDatabase(row));
+    async createSwimlane(swimlane) {
+        const newSwimlane = await this.#swimlaneRepository.createSwimlane(swimlane);
+        return newSwimlane;
     }
-    async findById(id) {
-        const row=await this.#repository.findById(id);
-        return row?Swimlane.fromDatabase(row):null;
+    async findSwimlaneById(id) {
+        const swimlane = await this.#swimlaneRepository.findSwimlaneById(id);
+        return swimlane;
     }
-    async create(nome) {
-        const row=await this.#repository.create(nome);
-        return Swimlane.fromDatabase(row);
+    async findAllSwimlanes() {
+        const swimlanes = await this.#swimlaneRepository.findAllSwimlanes();
+        return swimlanes;
     }
-    async update(id,nome) {
-        const row=await this.#repository.update(id,nome);
-        return row?Swimlane.fromDatabase(row):null;
+    async deleteSwimlaneById(id) {
+        const deletedSwimlane = await this.#swimlaneRepository.deleteSwimlaneById(id);
+        return deletedSwimlane;
     }
-    async delete(id) {
-        const row=await this.#repository.delete(id);
-        return row?Swimlane.fromDatabase(row):null;
+    async updateSwimlane(swimlane, id) {
+        const updatedSwimlane = await this.#swimlaneRepository.updateSwimlane(swimlane, id);
+        return updatedSwimlane;
+    }
+    async getSwimlaneByBoardId(id) {
+        const swimlanes = await this.#swimlaneRepository.getSwimlaneByBoardId(id);
+        return swimlanes;
     }
 }
-module.exports=SwimlaneService;
+module.exports = SwimlaneService;

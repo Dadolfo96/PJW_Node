@@ -24,7 +24,7 @@ class AuthController {
 
         const corrisponde = await bcrypt.compare(
             passwordInChiaro,
-            utente.getPassword()
+            utente.password
         );
 
         if (!corrisponde) {
@@ -37,7 +37,8 @@ class AuthController {
 
         res.json({
             token: token,
-            ruolo: utente.getRuolo()
+            ruolo: utente.ruolo,
+            id: utente.id
         });
     }
 }

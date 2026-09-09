@@ -1,61 +1,33 @@
 class SwimlaneController {
-    #service;
-    constructor(service) {
-        this.#service=service;
+    #swimlaneService;
+    constructor(swimlaneService) {
+        this.#swimlaneService = swimlaneService;
     }
-    async findAll(req,res) {
-        try {
-            const swimlanes=await this.#service.findAll();
-            res.json(swimlanes);
-        } catch(error) {
-            console.error(error);
-            res.status(500).json({message:"Errore nel recupero delle swimlanes."});
-        }
+    async findAll(req, res) {
+        const swimlanes = await this.#swimlaneService.findAll();
+        res.json(swimlanes);
     }
-    async findById(req,res) {
-        try {
-            const swimlane=await this.#service.findById(parseInt(req.params.id));
-            if(!swimlane) {
-                return res.status(404).json({message:"Swimlane non trovata."});
-            }
-            res.json(swimlane);
-        } catch(error) {
-            console.error(error);
-            res.status(500).json({message:"Errore nel recupero della swimlane."});
-        }
+    async findById(req, res) {
+        const swimlane = await this.#swimlaneService.findById(parseInt(req.params.id));
+        res.json(swimlane);
     }
-    async create(req,res) {
-        try {
-            const swimlane=await this.#service.create(req.body.nome);
-            res.status(201).json(swimlane);
-        } catch(error) {
-            console.error(error);
-            res.status(500).json({message:"Errore nella creazione della swimlane."});
-        }
+    async create(req, res) {
+        const swimlane = await this.#swimlaneService.create(req.body.nome);
+        res.status(201).json(swimlane);
     }
-    async update(req,res) {
-        try {
-            const swimlane=await this.#service.update(parseInt(req.params.id),req.body.nome);
-            if(!swimlane) {
-                return res.status(404).json({message:"Swimlane non trovata."});
-            }
-            res.json(swimlane);
-        } catch(error) {
-            console.error(error);
-            res.status(500).json({message:"Errore nella modifica della swimlane."});
-        }
+    async update(req, res) {
+        const swimlane = await this.#swimlaneService.update(parseInt(req.params.id), req.body.nome);
+        res.json(swimlane);
     }
-    async delete(req,res) {
-        try {
-            const swimlane=await this.#service.delete(parseInt(req.params.id));
-            if(!swimlane) {
-                return res.status(404).json({message:"Swimlane non trovata."});
-            }
-            res.json(swimlane);
-        } catch(error) {
-            console.error(error);
-            res.status(500).json({message:"Errore nella cancellazione della swimlane."});
-        }
+    async delete(req, res) {
+        const swimlane = await this.#swimlaneService.delete(parseInt(req.params.id));
+        res.json(swimlane);
     }
+    async getSwimlaneByBoardId(req,res) {
+
+        const id = Number(req.params.id);
+        const swimlane = await this.#swimlaneService.getSwimlaneByBoardId(id);
+        res.json(swimlane);        
+    }       
 }
-module.exports=SwimlaneController;
+module.exports = SwimlaneController;

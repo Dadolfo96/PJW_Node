@@ -1,28 +1,31 @@
 const Board=require("../models/Board");
+
 class BoardService {
-    #repository;
-    constructor(repository) {
-        this.#repository=repository;
+    #boardRepository;
+    constructor(boardRepository) {
+        this.#boardRepository=boardRepository;
     }
-    async findAll() {
-        const rows=await this.#repository.findAll();
-        return rows.map(row=>Board.fromDatabase(row));
+    async findAllBoards() {
+        const rows=await this.#boardRepository.findAllBoards();
+        return rows;
     }
-    async findById(id) {
-        const row=await this.#repository.findById(id);
-        return row?Board.fromDatabase(row):null;
+    async findBoardById(id) {
+        const row=await this.#boardRepository.findBoardById(id);
+        return row;
     }
-    async create(workspaceId,projectId,nome) {
-        const row=await this.#repository.create(workspaceId,projectId,nome);
-        return Board.fromDatabase(row);
+    async createBoard(workspaceId,projectId,nome) {
+        const board=new Board(workspaceId,projectId,nome);
+        return await this.#boardRepository.createBoard(board);
     }
-    async update(id,workspaceId,projectId,nome) {
-        const row=await this.#repository.update(id,workspaceId,projectId,nome);
-        return row?Board.fromDatabase(row):null;
+    async updateBoard(id,workspaceId,projectId,nome) {
+        const board=new Board(workspaceId,projectId,nome);
+        return await this.#boardRepository.updateBoard(board,id);
     }
-    async delete(id) {
-        const row=await this.#repository.delete(id);
-        return row?Board.fromDatabase(row):null;
+    async deleteBoardById(id) {
+        return await this.#boardRepository.deleteBoardById(id);
     }
+    async getBoardByUserId(id) {
+        return this.#boardRepository.getBoardByUserId(id);
+    }         
 }
 module.exports=BoardService;

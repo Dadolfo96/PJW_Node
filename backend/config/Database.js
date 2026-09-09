@@ -43,5 +43,30 @@ class Database {
         
         return result;
     }
+    async executeGetColumnsByIdBoard(id) {
+        const connection = await this.connect();
+        const result = await connection.request()
+        .input("idBoard", sql.Int, id)
+        .execute("getColumnsByIdBoard");
+        
+        return result;
+    }  
+    async executeGetSwimlanesByIdBoard(id) {
+        const connection = await this.connect();
+        const result = await connection.request()
+        .input("idBoard", sql.Int, id)
+        .execute("getSwimlanesByIdBoard");
+        
+        return result;
+    }      
+    async executeGetBoardByUserId(id) {
+        const connection = await this.connect();
+        const result = await connection.request()
+        .input("idUtente", sql.Int, id)
+        .execute("getBoardByUserId");
+        
+        return result;
+    }      
+      
 }
 module.exports = Database;

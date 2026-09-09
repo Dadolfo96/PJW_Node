@@ -57,7 +57,8 @@ class UserRepository {
             row.password
         );
 
-        return user;
+
+        return row;
     }
 
     async findAllUsers() {

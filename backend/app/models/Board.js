@@ -5,16 +5,16 @@ class Board {
     #nome;
     #dataCreazione;
     #dataAggiornamento;
-    constructor(workspaceId,projectId,nome) {
-        this.#workspaceId=workspaceId;
-        this.#projectId=projectId;
-        this.#nome=nome;
+    constructor(workspaceId, projectId, nome) {
+        this.#workspaceId = workspaceId;
+        this.#projectId = projectId;
+        this.#nome = nome;
     }
     static fromDatabase(row) {
-        const board=new Board(row.workspace_id,row.project_id,row.nome);
-        board.#id=row.id;
-        board.#dataCreazione=row.data_creazione;
-        board.#dataAggiornamento=row.data_aggiornamento;
+        const board = new Board(row.workspace_id, row.project_id, row.nome);
+        board.#id = row.id;
+        board.#dataCreazione = row.data_creazione;
+        board.#dataAggiornamento = row.data_aggiornamento;
         return board;
     }
     getId() {
@@ -36,13 +36,13 @@ class Board {
         return this.#dataAggiornamento;
     }
     setWorkspaceId(workspaceId) {
-        this.#workspaceId=workspaceId;
+        this.#workspaceId = workspaceId;
     }
     setProjectId(projectId) {
-        this.#projectId=projectId;
+        this.#projectId = projectId;
     }
     setNome(nome) {
-        this.#nome=nome;
+        this.#nome = nome;
     }
 }
-module.exports=Board;
+module.exports = Board;

@@ -1,90 +1,44 @@
+const queries = require("../query/queries.json");
+const Swimlane = require("../models/Swimlane");
 
-const queries = require("../query/queries.json")
-const User = require("../models/User");
-
-class UserRepository {
-
+class SwimlaneRepository {
     #database;
-
     constructor(database) {
         this.#database = database;
     }
-    async createUser(user) {
+    async createSwimlane(swimlane) {
         const parameters = {
-            nome: user.getNome(),
-            cognome: user.getCognome(),
-            mail: user.getMail(),
-            username: user.getUsername(),
-            password: user.getPassword(),
-            ruolo: user.getRuolo()
-        };    
-        return await this.#database.query(queries.createUser, parameters);
+            nome: swimlane.getNome()
+        };
+        return await this.#database.query(queries.createSwimlane, parameters);
     }
-    async findUserById(id) {
-        const result = await this.#database.query(queries.findUserById, { id: id });
+    async findSwimlaneById(id) {
+        const result = await this.#database.query(queries.findSwimlaneById, { id: id });
         const row = result.recordset[0];
-
         if (!row) {
             return null;
         }
-
-        const user = new User(
-            row.nome,
-            row.cognome,
-            row.mail,
-            row.username,
-            row.ruolo,
-            row.password
-        );
-
-        return user;
+        const swimlane = new Swimlane(row.nome);
+        return swimlane;
     }
-
-    async findUserByEmail(email) {
-        const result = await this.#database.query(queries.findUserByEmail, { mail: email });
-        const row = result.recordset[0];
-
-        if (!row) {
-            return null;
-        }
-
-        const user = new User(
-            row.nome,
-            row.cognome,
-            row.mail,
-            row.username,
-            row.ruolo,
-            row.password
-        );
-
-        return user;
+    async findAllSwimlanes() {
+        const swimlanes = await this.#database.query(queries.findAllSwimlanes);
+        return swimlanes;
     }
-
-    async findAllUsers() {
-        const users = await this.#database.query(queries.findAllUsers);
-        return users;
+    async deleteSwimlaneById(id) {
+        const deletedSwimlane = await this.#database.query(queries.deleteSwimlaneById, { id: id });
+        return deletedSwimlane;
     }
-
-    async deleteUserById(id) {
-        const deletedUser = await this.#database.query(queries.deleteUserById, { id: id });
-        return deletedUser;
-    }
-    async updateUser(user, id) {
-
+    async updateSwimlane(swimlane, id) {
         const parameters = {
             id: id,
-            nome: user.getNome(),
-            cognome: user.getCognome(),
-            mail: user.getMail(),
-            username: user.getUsername(),
-            ruolo: user.getRuolo()
+            nome: swimlane.getNome()
         };
+        return await this.#database.query(queries.updateSwimlane, parameters);
+    }
+    async getSwimlanesByIdBoard(id) {
+        return this.#database.executeGetSwimlanesByIdBoard(id);
+    }
 
-        return await this.#database.query(queries.updateUser, parameters);
-    }
-    async getUserCards(id) {
-        return this.#database.executeUserCards(id);
-    }
 }
-
-module.exports = UserRepository;
+module.exports = SwimlaneRepository;

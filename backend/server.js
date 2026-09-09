@@ -3,13 +3,14 @@ process.loadEnvFile();
 const express = require("express");
 const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
+const boardsRouter = require("./routes/boards");
 const homeRouter = require("./routes/home");
+const columnsRouter = require("./routes/columns");
+const swimlanesRouter = require("./routes/swimlanes");
 const { authenticateJWT } = require("./config/auth");
 
 const app = express();
 const port = 3000;
-
-
 
     app.use(express.json());
     const path = require("path");
@@ -26,6 +27,9 @@ const port = 3000;
     // Rotte protette
     app.use("/users", usersRouter);
     app.use("/cards", cardsRouter);
+    app.use("/boards", boardsRouter);
+    app.use("/columns", columnsRouter);
+    app.use("/swimlanes", swimlanesRouter);
 
 
     // Start the server

@@ -11,15 +11,24 @@ class CardController {
     }
 
     async createCard(req, res) {
-
         const card = new Card(
+            req.body.board_id,
+            req.body.column_id,
+            req.body.swimlane_id ? Number(req.body.swimlane_id) : null,
             req.body.stato,
             req.body.titolo,
             req.body.sottotitolo,
-            req.body.assegnatario,
-            req.body.responsabile,
-            Number(req.body.id_user_esecutore),
-            req.body.note
+            Number(req.body.assegnatario),
+            Number(req.body.responsabile),
+            Number(req.body.creatore),
+            req.body.id_user_esecutore ? Number(req.body.id_user_esecutore) : null,
+            req.body.note,
+            Number(req.body.position),
+            req.body.parent_card_id ? Number(req.body.parent_card_id) : null,
+            req.body.priority_id ? Number(req.body.priority_id) : null,
+            req.body.scadenza,
+            req.body.data_fine,
+            req.body.data_fine_prevista
         );
 
         await this.#cardService.createCard(card);
@@ -28,7 +37,6 @@ class CardController {
             message: "Creazione card completata"
         });
     }
-
     async findCardById(req, res) {
 
         const id = req.params.id;
@@ -55,23 +63,30 @@ class CardController {
     }
 
     async updateCard(req, res) {
-
-        const id = req.params.id;
-
+        const id = Number(req.params.id);
         const card = new Card(
+            req.body.board_id,
+            req.body.column_id,
+            req.body.swimlane_id,
             req.body.stato,
             req.body.titolo,
             req.body.sottotitolo,
-            req.body.assegnatario,
-            req.body.responsabile,
-            Number(req.body.id_user_esecutore),
-            req.body.note
+            Number(req.body.assegnatario),
+            Number(req.body.responsabile),
+            Number(req.body.creatore),
+            req.body.id_user_esecutore ? Number(req.body.id_user_esecutore) : null,
+            req.body.note,
+            Number(req.body.position),
+            req.body.parent_card_id ? Number(req.body.parent_card_id) : null,
+            req.body.priority_id ? Number(req.body.priority_id) : null,
+            req.body.scadenza,
+            req.body.data_fine,
+            req.body.data_fine_prevista
         );
-
         const updatedCard = await this.#cardService.updateCard(card, id);
-
         res.json(updatedCard);
     }
+    
     static boardPage(req, res) {
         res.send(renderPage("board.html"));
     }

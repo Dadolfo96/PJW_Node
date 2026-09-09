@@ -106,9 +106,19 @@ class UserController {
         res.json(updatedUser);
     }
 
-    async getUserCards(id) {
-        return this.#userService.getUserCards(Number(id));
-    }        
+    async getUserCards(req, res) {
+        const id = Number(req.params.id);
+
+        try {
+            const cards = await this.#userService.getUserCards(id);
+            res.json(cards);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                message: error.message
+            });
+        }
+    }    
 }
 
 module.exports = UserController;

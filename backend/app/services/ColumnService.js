@@ -1,28 +1,31 @@
-const Column=require("../models/Column");
 class ColumnService {
-    #repository;
-    constructor(repository) {
-        this.#repository=repository;
+    #columnRepository;
+    constructor(columnRepository) {
+        this.#columnRepository = columnRepository;
     }
-    async findAll() {
-        const rows=await this.#repository.findAll();
-        return rows.map(row=>Column.fromDatabase(row));
+    async createColumn(column) {
+        const newColumn = await this.#columnRepository.createColumn(column);
+        return newColumn;
     }
-    async findById(id) {
-        const row=await this.#repository.findById(id);
-        return row?Column.fromDatabase(row):null;
+    async findColumnById(id) {
+        const column = await this.#columnRepository.findColumnById(id);
+        return column;
     }
-    async create(nome,wipLimit) {
-        const row=await this.#repository.create(nome,wipLimit);
-        return Column.fromDatabase(row);
+    async findAllColumns() {
+        const columns = await this.#columnRepository.findAllColumns();
+        return columns;
     }
-    async update(id,nome,wipLimit) {
-        const row=await this.#repository.update(id,nome,wipLimit);
-        return row?Column.fromDatabase(row):null;
+    async deleteColumnById(id) {
+        const deletedColumn = await this.#columnRepository.deleteColumnById(id);
+        return deletedColumn;
     }
-    async delete(id) {
-        const row=await this.#repository.delete(id);
-        return row?Column.fromDatabase(row):null;
+    async updateColumn(column, id) {
+        const updatedColumn = await this.#columnRepository.updateColumn(column, id);
+        return updatedColumn;
+    }
+    async getColumnByBoardId(id) {
+        const columns = await this.#columnRepository.getColumnByBoardId(id);
+        return columns;
     }
 }
-module.exports=ColumnService;
+module.exports = ColumnService;

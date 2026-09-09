@@ -1,63 +1,42 @@
+const Board = require("../models/Board");
+const path = require("path");
+const renderPage = require("../utils/renderPage");
+
+
 class BoardController {
-    #service;
-    constructor(service) {
-        this.#service=service;
+    #boardService;
+    constructor(boardService) {
+        this.#boardService = boardService;
     }
-    async findAll(req,res) {
-        try {
-            const boards=await this.#service.findAll();
-            res.json(boards);
-        } catch(error) {
-            console.error(error);
-            res.status(500).json({message:"Errore nel recupero delle board."});
-        }
+    async findAllBoards(req, res) {
+        const boards = await this.#boardService.findAllBoards();
+        res.json(boards);
     }
-    async findById(req,res) {
-        try {
-            const board=await this.#service.findById(parseInt(req.params.id));
-            if(!board) {
-                return res.status(404).json({message:"Board non trovata."});
-            }
-            res.json(board);
-        } catch(error) {
-            console.error(error);
-            res.status(500).json({message:"Errore nel recupero della board."});
-        }
+    async findBoardById(req, res) {
+        const board = await this.#boardService.findById(parseInt(req.params.id));
+        res.json(board);
     }
-    async create(req,res) {
-        try {
-            const {workspaceId,projectId,nome}=req.body;
-            const board=await this.#service.create(workspaceId,projectId,nome);
-            res.status(201).json(board);
-        } catch(error) {
-            console.error(error);
-            res.status(500).json({message:"Errore nella creazione della board."});
-        }
+    async createBoard(req, res) {
+        const { workspaceId, projectId, nome } = req.body;
+        const board = await this.#boardService.create(workspaceId, projectId, nome);
+        res.status(201).json(board);
     }
-    async update(req,res) {
-        try {
-            const {workspaceId,projectId,nome}=req.body;
-            const board=await this.#service.update(parseInt(req.params.id),workspaceId,projectId,nome);
-            if(!board) {
-                return res.status(404).json({message:"Board non trovata."});
-            }
-            res.json(board);
-        } catch(error) {
-            console.error(error);
-            res.status(500).json({message:"Errore nella modifica della board."});
-        }
+    async updateBoard(req, res) {
+        const { workspaceId, projectId, nome } = req.body;
+        const board = await this.#boardService.update(parseInt(req.params.id), workspaceId, projectId, nome);
+        res.json(board);
     }
-    async delete(req,res) {
-        try {
-            const board=await this.#service.delete(parseInt(req.params.id));
-            if(!board) {
-                return res.status(404).json({message:"Board non trovata."});
-            }
-            res.json(board);
-        } catch(error) {
-            console.error(error);
-            res.status(500).json({message:"Errore nella cancellazione della board."});
-        }
+    async deleteBoardById(req, res) {
+        const board = await this.#boardService.delete(parseInt(req.params.id));
+        res.json(board);
     }
+    async getBoardByUserId(req,res) {
+
+        const id = Number(req.params.id);
+        const boards = await this.#boardService.getBoardByUserId(id);
+        res.json(boards);
+
+
+    }        
 }
-module.exports=BoardController;
+module.exports = BoardController;
