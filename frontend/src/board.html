@@ -23,36 +23,30 @@
                 + Nuova Card
             </button>
         </div>
-
         <div id="kanban-board">
-            <div class="text-center py-5">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Caricamento...</span>
+            <div class="card shadow border-0 rounded-4 mb-4">
+                <div class="card-header bg-white border-0 p-4">
+                    <h5 class="fw-bold mb-0">Kanban Board</h5>
                 </div>
-                <p class="text-muted mt-3 mb-0">Caricamento board...</p>
+                <div class="card-body p-0">
+                    <div class="row g-0 kanban-header">
+                        <div class="col-2 bg-light border p-3"></div>
+                    </div>
+                    <div class="kanban-rows"></div>
+                </div>
             </div>
         </div>
-
-        <template id="kanban-column-template">
-            <div class="col">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-header">
-                        <h5 class="mb-0 column-name"></h5>
-                    </div>
-                    <div class="card-body p-2">
-                        <div class="swimlanes"></div>
-                    </div>
-                </div>
+        <template id="kanban-row-template">
+            <div class="row g-0">
+                <div class="col-2 bg-light border p-3 fw-semibold text-secondary swimlane-name"></div>
             </div>
         </template>
-
-        <template id="kanban-swimlane-template">
-            <div class="swimlane mb-3">
-                <div class="swimlane-name fw-semibold mb-2"></div>
+        <template id="kanban-cell-template">
+            <div class="col border p-3">
                 <div class="kanban-cards"></div>
             </div>
         </template>
-        </div> 
+    </div> 
                
         <!-- TABELLA CARD -->
         <div class="card shadow border-0 rounded-4 mb-4">

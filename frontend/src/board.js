@@ -179,31 +179,32 @@ async function getBoardSwimlanes(idBoard) {
 
 function buildKanbanBoard(columns, swimlanes) {
     const kanbanBoard = document.getElementById("kanban-board");
-    const columnTemplate = document.getElementById("kanban-column-template");
-    const swimlaneTemplate = document.getElementById("kanban-swimlane-template");
-
-    kanbanBoard.innerHTML = "";
-
+    const rowTemplate = document.getElementById("kanban-row-template");
+    const cellTemplate = document.getElementById("kanban-cell-template");
+    const header = kanbanBoard.querySelector(".kanban-header");
+    const rows = kanbanBoard.querySelector(".kanban-rows");
+    header.innerHTML = `<div class="col-2 bg-light border p-3"></div>`;
+    rows.innerHTML = "";
     columns.forEach(column => {
-        const columnElement = columnTemplate.content.cloneNode(true);
-
-        columnElement.querySelector(".column-name").textContent = column.nome;
-
-        swimlanes.forEach(swimlane => {
-            const swimlaneElement = swimlaneTemplate.content.cloneNode(true);
-
-            swimlaneElement.querySelector(".swimlane-name").textContent = swimlane.nome;
-
-            swimlaneElement.querySelector(".kanban-cards").dataset.columnId = column.column_id;
-            swimlaneElement.querySelector(".kanban-cards").dataset.swimlaneId = swimlane.swimlane_id;
-
-            columnElement.querySelector(".swimlanes").appendChild(swimlaneElement);
+        const headerCell = document.createElement("div");
+        headerCell.className = "col border p-3 text-center fw-semibold text-secondary";
+        headerCell.textContent = column.nome;
+        header.appendChild(headerCell);
+    });
+    swimlanes.forEach(swimlane => {
+        const rowElement = rowTemplate.content.cloneNode(true);
+        const row = rowElement.querySelector(".row");
+        row.querySelector(".swimlane-name").textContent = swimlane.nome;
+        columns.forEach(column => {
+            const cellElement = cellTemplate.content.cloneNode(true);
+            const cardsContainer = cellElement.querySelector(".kanban-cards");
+            cardsContainer.dataset.columnId = column.column_id;
+            cardsContainer.dataset.swimlaneId = swimlane.swimlane_id;
+            row.appendChild(cellElement);
         });
-
-        kanbanBoard.appendChild(columnElement);
+        rows.appendChild(row);
     });
 }
-
 document.getElementById("selectBoardId").addEventListener("change", async function(event) {
     const idBoard = event.target.value;
 
