@@ -23,8 +23,8 @@ class SwimlaneService {
         const updatedSwimlane = await this.#swimlaneRepository.updateSwimlane(swimlane, id);
         return updatedSwimlane;
     }
-    async getSwimlaneByBoardId(id) {
-        const swimlanes = await this.#swimlaneRepository.getSwimlaneByBoardId(id);
+    async getSwimlanesByIdBoard(id) {
+        const swimlanes = await this.#swimlaneRepository.getSwimlanesByIdBoard(id);
         return swimlanes;
     }
 }

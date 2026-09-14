@@ -25,10 +25,13 @@ class ColumnController {
         const column = await this.#columnService.delete(parseInt(req.params.id));
         res.json(column);
     }
-    async getColumnByBoardId(req,res) {
+    async getColumnsByIdBoard(req,res) {
+
+        console.log(req)
 
         const id = Number(req.params.id);
-        const columns = await this.#columnService.getColumnByBoardId(id);
+        console.log(id)
+        const columns = await this.#columnService.getColumnsByIdBoard(id);
         res.json(columns);        
     }      
 }

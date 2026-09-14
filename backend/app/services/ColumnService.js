@@ -23,8 +23,8 @@ class ColumnService {
         const updatedColumn = await this.#columnRepository.updateColumn(column, id);
         return updatedColumn;
     }
-    async getColumnByBoardId(id) {
-        const columns = await this.#columnRepository.getColumnByBoardId(id);
+    async getColumnsByIdBoard(id) {
+        const columns = await this.#columnRepository.getColumnsByIdBoard(id);
         return columns;
     }
 }

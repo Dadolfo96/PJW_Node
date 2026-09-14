@@ -23,10 +23,10 @@ class SwimlaneController {
         const swimlane = await this.#swimlaneService.delete(parseInt(req.params.id));
         res.json(swimlane);
     }
-    async getSwimlaneByBoardId(req,res) {
+    async getSwimlanesByIdBoard(req,res) {
 
         const id = Number(req.params.id);
-        const swimlane = await this.#swimlaneService.getSwimlaneByBoardId(id);
+        const swimlane = await this.#swimlaneService.getSwimlanesByIdBoard(id);
         res.json(swimlane);        
     }       
 }

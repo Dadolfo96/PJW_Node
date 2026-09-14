@@ -12,7 +12,7 @@ const columnService = new ColumnService(columnRepository);
 const columnController = new ColumnController(columnService);
 
 router.get("/board/:id", async (req, res) => {
-    await columnController.getColumnByBoardId(req, res);
+    await columnController.getColumnsByIdBoard(req, res);
 });
 
 module.exports = router;

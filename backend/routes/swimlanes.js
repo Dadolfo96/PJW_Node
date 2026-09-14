@@ -12,7 +12,7 @@ const swimlaneService = new SwimlaneService(swimlaneRepository);
 const swimlaneController = new SwimlaneController(swimlaneService);
 
 router.get("/board/:id", async (req, res) => {
-    await swimlaneController.getSwimlaneByBoardId(req, res);
+    await swimlaneController.getSwimlanesByIdBoard(req, res);
 });
 
 module.exports = router;
