@@ -17,10 +17,13 @@ const response = await fetch(loginForm.action, {
 });
 
 const result = await response.json();
+let ruolo = result.ruolo
 
 if (result.token) {
     sessionStorage.setItem("token", result.token);
     sessionStorage.setItem("ruolo", result.ruolo);
+    sessionStorage.setItem("idUser", result.id);
+    console.log(ruolo);
 
     window.location.href = "/profile";
 }
@@ -35,7 +38,7 @@ const registerForm = document.getElementById("registerForm");
 registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const response = await fetch("/users", {
+    const response = await fetch("/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"

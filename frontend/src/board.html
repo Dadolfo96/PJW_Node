@@ -8,6 +8,52 @@
             <p class="lead text-secondary">Gestione delle card</p>
         </div>
 
+        <div class="col-md-6 mb-3">
+            <label for="selectBoardId" class="form-label">Board</label>
+            <select class="form-select" id="selectBoardId" name="board_id" required>
+                <option value="" selected disabled>Seleziona una board</option>
+            </select>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <p class="text-muted mb-0">Kanban Board</p>
+            </div>
+            <button type="button" class="btn btn-primary">
+                + Nuova Card
+            </button>
+        </div>
+
+        <div id="kanban-board">
+            <div class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Caricamento...</span>
+                </div>
+                <p class="text-muted mt-3 mb-0">Caricamento board...</p>
+            </div>
+        </div>
+
+        <template id="kanban-column-template">
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header">
+                        <h5 class="mb-0 column-name"></h5>
+                    </div>
+                    <div class="card-body p-2">
+                        <div class="swimlanes"></div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="kanban-swimlane-template">
+            <div class="swimlane mb-3">
+                <div class="swimlane-name fw-semibold mb-2"></div>
+                <div class="kanban-cards"></div>
+            </div>
+        </template>
+        </div> 
+               
         <!-- TABELLA CARD -->
         <div class="card shadow border-0 rounded-4 mb-4">
             <div class="card-body p-4 p-md-5">
@@ -35,15 +81,50 @@
 
             </div>
         </div>
-            //crea nuiova card
+
+        // get cards assegnate ad un utente specifico
+        <div class="container mt-4">
+            <div class="card">
+                <div class="card-header">
+                    Cards dell'utente
+                </div>
+                <div class="card-body">
+                    <form id="userCardsForm">
+                        <div class="mb-3">
+                            <label for="userId" class="form-label">ID Utente</label>
+                            <input type="number" class="form-control" id="userId" name="id" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cerca Cards</button>
+                    </form>
+                    <div id="userCardsResult" class="alert alert-info mt-3 d-none"></div>
+                </div>
+            </div>
+        </div>  
+                  
+        <!-- CREA NUOVA CARD -->
         <div class="card shadow border-0 rounded-4 mb-4">
             <div class="card-body p-4 p-md-5">
-
                 <h2 class="fw-bold mb-4">Crea nuova card</h2>
 
                 <form id="createForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="createBoardId" class="form-label">ID Board</label>
+                            <input type="number" class="form-control" id="createBoardId" name="board_id" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="createColumnId" class="form-label">ID Column</label>
+                            <input type="number" class="form-control" id="createColumnId" name="column_id" required>
+                        </div>
+                    </div>
 
                     <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="createSwimlaneId" class="form-label">ID Swimlane</label>
+                            <input type="number" class="form-control" id="createSwimlaneId" name="swimlane_id">
+                        </div>
+
                         <div class="col-md-6 mb-3">
                             <label for="createStato" class="form-label">Stato</label>
                             <select class="form-select" id="createStato" name="stato" required>
@@ -52,34 +133,77 @@
                                 <option value="Completato">Completato</option>
                             </select>
                         </div>
+                    </div>
 
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="createTitolo" class="form-label">Titolo</label>
                             <input type="text" class="form-control" id="createTitolo" name="titolo" required>
                         </div>
-                    </div>
 
-                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="createSottotitolo" class="form-label">Sottotitolo</label>
                             <input type="text" class="form-control" id="createSottotitolo" name="sottotitolo">
                         </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="createAssegnatario" class="form-label">ID Assegnatario</label>
+                            <input type="number" class="form-control" id="createAssegnatario" name="assegnatario" required>
+                        </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="createAssegnatario" class="form-label">Assegnatario</label>
-                            <input type="text" class="form-control" id="createAssegnatario" name="assegnatario" required>
+                            <label for="createResponsabile" class="form-label">ID Responsabile</label>
+                            <input type="number" class="form-control" id="createResponsabile" name="responsabile" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="createResponsabile" class="form-label">Responsabile</label>
-                            <input type="text" class="form-control" id="createResponsabile" name="responsabile" required>
+                            <label for="createCreatore" class="form-label">ID Creatore</label>
+                            <input type="number" class="form-control" id="createCreatore" name="creatore" required>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label for="createIdUserEsecutore" class="form-label">ID User Esecutore</label>
                             <input type="number" class="form-control" id="createIdUserEsecutore" name="id_user_esecutore">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="createPosition" class="form-label">Position</label>
+                            <input type="number" class="form-control" id="createPosition" name="position" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="createParentCardId" class="form-label">ID Parent Card</label>
+                            <input type="number" class="form-control" id="createParentCardId" name="parent_card_id">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="createPriorityId" class="form-label">ID Priority</label>
+                            <input type="number" class="form-control" id="createPriorityId" name="priority_id">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="createScadenza" class="form-label">Scadenza</label>
+                            <input type="date" class="form-control" id="createScadenza" name="scadenza">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="createDataFine" class="form-label">Data Fine</label>
+                            <input type="date" class="form-control" id="createDataFine" name="data_fine">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="createDataFinePrevista" class="form-label">Data Fine Prevista</label>
+                            <input type="date" class="form-control" id="createDataFinePrevista" name="data_fine_prevista">
                         </div>
                     </div>
 
@@ -91,13 +215,11 @@
                     <button type="submit" id="createButton" class="btn btn-primary">
                         Crea card
                     </button>
-
                 </form>
 
                 <div id="createResult" class="alert alert-success d-none mt-3"></div>
-
             </div>
-        </div>       
+        </div>
 
         <!-- FIND BY ID -->
         <div class="card shadow border-0 rounded-4 mb-4">
@@ -125,77 +247,89 @@
         <!-- UPDATE BY ID -->
         <div class="card shadow border-0 rounded-4 mb-4">
             <div class="card-body p-4 p-md-5">
-
                 <h2 class="fw-bold mb-4">Modifica card</h2>
-
-<!-- UPDATE BY ID -->
-
-<div class="card shadow border-0 rounded-4 mb-4">
-    <div class="card-body p-4 p-md-5">
-
-
-    <h2 class="fw-bold mb-4">Modifica card</h2>
-
-        <form id="updateForm">
-
-            <div class="mb-3">
-                <label for="updateId" class="form-label">ID card</label>
-                <input type="number" class="form-control" id="updateId" name="id" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="updateStato" class="form-label">Stato</label>
-                <select class="form-select" id="updateStato" name="stato" required>
-                    <option value="Pianificato">Pianificato</option>
-                    <option value="In lavorazione">In lavorazione</option>
-                    <option value="Completato">Completato</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="updateTitolo" class="form-label">Titolo</label>
-                <input type="text" class="form-control" id="updateTitolo" name="titolo">
-            </div>
-
-            <div class="mb-3">
-                <label for="updateSottotitolo" class="form-label">Sottotitolo</label>
-                <input type="text" class="form-control" id="updateSottotitolo" name="sottotitolo">
-            </div>
-
-            <div class="mb-3">
-                <label for="updateAssegnatario" class="form-label">Assegnatario</label>
-                <input type="text" class="form-control" id="updateAssegnatario" name="assegnatario">
-            </div>
-
-            <div class="mb-3">
-                <label for="updateResponsabile" class="form-label">Responsabile</label>
-                <input type="text" class="form-control" id="updateResponsabile" name="responsabile">
-            </div>
-
-            <div class="mb-3">
-                <label for="updateIdUserEsecutore" class="form-label">ID User Esecutore</label>
-                <input type="number" class="form-control" id="updateIdUserEsecutore" name="id_user_esecutore">
-            </div>
-
-            <div class="mb-4">
-                <label for="updateNote" class="form-label">Note</label>
-                <textarea class="form-control" id="updateNote" name="note"></textarea>
-            </div>
-
-            <button type="submit" id="updateButton" class="btn btn-warning">
-                Modifica
-            </button>
-
-        </form>
-
-        <div id="updateResult" class="alert d-none mt-4"></div>
-
-    </div>
-
-
-</div>
-
-
+                <form id="updateForm">
+                    <div class="mb-3">
+                        <label for="updateId" class="form-label">ID card</label>
+                        <input type="number" class="form-control" id="updateId" name="id" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateBoardId" class="form-label">ID Board</label>
+                        <input type="number" class="form-control" id="updateBoardId" name="board_id" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateColumnId" class="form-label">ID Column</label>
+                        <input type="number" class="form-control" id="updateColumnId" name="column_id" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateSwimlaneId" class="form-label">ID Swimlane</label>
+                        <input type="number" class="form-control" id="updateSwimlaneId" name="swimlane_id">
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateStato" class="form-label">Stato</label>
+                        <select class="form-select" id="updateStato" name="stato" required>
+                            <option value="Pianificato">Pianificato</option>
+                            <option value="In lavorazione">In lavorazione</option>
+                            <option value="Completato">Completato</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateTitolo" class="form-label">Titolo</label>
+                        <input type="text" class="form-control" id="updateTitolo" name="titolo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateSottotitolo" class="form-label">Sottotitolo</label>
+                        <input type="text" class="form-control" id="updateSottotitolo" name="sottotitolo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateAssegnatario" class="form-label">ID Assegnatario</label>
+                        <input type="number" class="form-control" id="updateAssegnatario" name="assegnatario" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateResponsabile" class="form-label">ID Responsabile</label>
+                        <input type="number" class="form-control" id="updateResponsabile" name="responsabile" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateCreatore" class="form-label">ID Creatore</label>
+                        <input type="number" class="form-control" id="updateCreatore" name="creatore" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateIdUserEsecutore" class="form-label">ID User Esecutore</label>
+                        <input type="number" class="form-control" id="updateIdUserEsecutore" name="id_user_esecutore">
+                    </div>
+                    <div class="mb-3">
+                        <label for="updatePosition" class="form-label">Position</label>
+                        <input type="number" class="form-control" id="updatePosition" name="position" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateParentCardId" class="form-label">ID Parent Card</label>
+                        <input type="number" class="form-control" id="updateParentCardId" name="parent_card_id">
+                    </div>
+                    <div class="mb-3">
+                        <label for="updatePriorityId" class="form-label">ID Priority</label>
+                        <input type="number" class="form-control" id="updatePriorityId" name="priority_id">
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateScadenza" class="form-label">Scadenza</label>
+                        <input type="date" class="form-control" id="updateScadenza" name="scadenza">
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateDataFine" class="form-label">Data Fine</label>
+                        <input type="date" class="form-control" id="updateDataFine" name="data_fine">
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateDataFinePrevista" class="form-label">Data Fine Prevista</label>
+                        <input type="date" class="form-control" id="updateDataFinePrevista" name="data_fine_prevista">
+                    </div>
+                    <div class="mb-4">
+                        <label for="updateNote" class="form-label">Note</label>
+                        <textarea class="form-control" id="updateNote" name="note"></textarea>
+                    </div>
+                    <button type="submit" id="updateButton" class="btn btn-warning">
+                        Modifica
+                    </button>
+                </form>
+                <div id="updateResult" class="alert d-none mt-4"></div>
             </div>
         </div>
 
