@@ -25,8 +25,6 @@ router.get("/home", async (req, res) => {
 
 });
 
-
-
 // POST registrazione
 router.post("/register", async (req, res) => {
     await userController.createUser(req, res);
@@ -42,7 +40,6 @@ router.post("/login", async (req, res) => {
 router.get("/profile", (req, res) => {
     HomeController.profilePage(req, res);
 });
-
 
 
 router.get("/", async (req, res) => {

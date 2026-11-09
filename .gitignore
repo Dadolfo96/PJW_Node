@@ -1,0 +1,103 @@
+
+# ==========================================
+# PYTHON
+# ==========================================
+
+# Dipendenze e ambienti virtuali
+venv/
+.venv/
+env/
+ENV/
+
+# Cache e file compilati
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribuzioni
+dist/
+build/
+*.egg-info/
+
+# Test e strumenti
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+
+# ==========================================
+# NODE.JS / JAVASCRIPT / ANGULAR
+# ==========================================
+
+# Dipendenze installate
+node_modules/
+
+# Build e distribuzioni
+dist/
+build/
+out/
+.angular/
+
+# Cache
+.npm/
+.eslintcache
+*.tsbuildinfo
+
+# Log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# File temporanei
+.DS_Store
+Thumbs.db
+
+
+# ==========================================
+# ANGULAR
+# ==========================================
+
+# Cache Angular
+.angular/cache/
+
+# Build Angular
+# dist/ è già esclusa sopra
+
+
+# ==========================================
+# PHP / COMPOSER
+# ==========================================
+
+# Dipendenze installate
+/vendor/
+
+# Cache e file temporanei
+.phpunit.cache/
+.phpunit.result.cache
+
+# Log
+*.log
+
+
+# ==========================================
+# IDE / EDITOR
+# ==========================================
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# ==========================================
+# SISTEMA OPERATIVO
+# ==========================================
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store

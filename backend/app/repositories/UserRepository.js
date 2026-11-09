@@ -53,7 +53,7 @@ class UserRepository {
             row.cognome,
             row.mail,
             row.username,
-            row.ruolo,
+            row.ruolo_id,
             row.password
         );
 
@@ -78,7 +78,7 @@ class UserRepository {
             cognome: user.getCognome(),
             mail: user.getMail(),
             username: user.getUsername(),
-            ruolo: user.getRuolo()
+            ruolo_id: user.getRuolo()
         };
 
         return await this.#database.query(queries.updateUser, parameters);

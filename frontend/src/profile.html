@@ -124,9 +124,9 @@ const authHeaders = {
     </div>
 </main>
 <script>
-const ruolo = sessionStorage.getItem("ruolo");
+const ruolo = sessionStorage.getItem("ruolo_id");
 
-if (ruolo !== "Admin") {
+if (Number(ruolo) !== 0) {
     document.getElementById("findUser").hidden = true;
     document.getElementById("updateUser").hidden = true;
     document.getElementById("deleteUser").hidden = true;

@@ -5,9 +5,9 @@ class User {
     #mail;
     #username;
     #password;
-    #ruolo;
+    #ruolo_id;
     
-    constructor(nome, cognome, mail, username, ruolo, password) {
+    constructor(nome, cognome, mail, username, ruolo_id, password) {
         if (typeof nome !== "string" || nome.length === 0 || nome.length > 50) {
             throw new TypeError("Il nome deve essere una stringa di massimo 50 caratteri e non può essere vuoto");
         }
@@ -25,10 +25,10 @@ class User {
             throw new TypeError("Lo username deve essere una stringa di massimo 50 caratteri e non può essere vuoto");
         }
 
-        if (ruolo !== null && ruolo !== undefined &&
-            (typeof ruolo !== "string" || ruolo.length > 50)) {
-            throw new TypeError("Il ruolo deve essere una stringa di massimo 50 caratteri");
-        }      
+        if (ruolo_id !== null && ruolo_id !== undefined &&
+            (!Number.isInteger(ruolo_id) || ruolo_id < 0)) {
+            throw new TypeError("Il ruolo_id deve essere un numero intero non negativo");
+        }   
 
         if (password !== null && password !== undefined &&
             (typeof password !== "string" || password.length === 0 || password.length > 255)) {
@@ -39,7 +39,7 @@ class User {
         this.#cognome = cognome;
         this.#mail = mail;
         this.#username = username;
-        this.#ruolo = ruolo;
+        this.#ruolo_id = ruolo_id;
         this.#password = password;
     }
 
@@ -50,7 +50,7 @@ class User {
             cognome: this.#cognome,
             mail: this.#mail,
             username: this.#username,
-            ruolo: this.#ruolo
+            ruolo_id: this.#ruolo_id
         };
     }
 
@@ -75,7 +75,7 @@ class User {
     }
 
     getRuolo() {
-        return this.#ruolo;
+        return this.#ruolo_id;
     }
 
     getPassword() {
@@ -111,12 +111,12 @@ class User {
         this.#username = username;
     }
 
-    setRuolo(ruolo) {
-        if (ruolo !== null && ruolo !== undefined &&
-            (typeof ruolo !== "string" || ruolo.length > 50)) {
-            throw new TypeError("Il ruolo deve essere una stringa di massimo 50 caratteri");
+    setRuolo(ruolo_id) {
+        if (ruolo_id !== null && ruolo_id !== undefined &&
+            (!Number.isInteger(ruolo_id) || ruolo_id < 0)) {
+            throw new TypeError("Il ruolo_id deve essere un numero intero non negativo");
         }
-        this.#ruolo = ruolo;
+        this.#ruolo_id = ruolo_id;
     }
 
     setPassword(password) {

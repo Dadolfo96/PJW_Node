@@ -21,7 +21,7 @@ class UserController {
             req.body.cognome,
             req.body.mail,
             req.body.username,
-            req.body.ruolo,
+            req.body.ruolo_id,
             req.body.password
         );
 
@@ -85,7 +85,7 @@ class UserController {
             req.body.cognome,
             req.body.mail,
             req.body.username,
-            req.body.ruolo,
+            req.body.ruolo_id,
             req.body.password
         );
 

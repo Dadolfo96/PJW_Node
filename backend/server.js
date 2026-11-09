@@ -1,6 +1,7 @@
 process.loadEnvFile();
 
 const express = require("express");
+const cors = require("cors");
 const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
 const boardsRouter = require("./routes/boards");
@@ -10,8 +11,12 @@ const swimlanesRouter = require("./routes/swimlanes");
 const { authenticateJWT } = require("./config/auth");
 
 const app = express();
-const port = 3000;
+const port = 6060;
 
+    // Autorizza le richieste provenienti dall'app Angular
+    app.use(cors({
+        origin: "http://localhost:4200"
+    }));    
     app.use(express.json());
     const path = require("path");
 

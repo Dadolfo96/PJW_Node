@@ -10,7 +10,7 @@ class AuthRepository {
     }
 
     async findUserByEmail(email) {
-        const query = "SELECT id, username, mail, password, ruolo FROM Users WHERE mail = ?";
+        const query = "SELECT id, username, mail, password, ruolo_id FROM Users WHERE mail = ?";
         const result = await this.#database.query(query, [email]);
         return result;
     }

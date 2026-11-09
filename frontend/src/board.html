@@ -357,7 +357,7 @@
 <script src="https://cdn.datatables.net/2.3.3/js/dataTables.min.js"></script>
 <script>
 
-if (sessionStorage.getItem("ruolo") !== "Admin") {
+if (Number(ruolo) !== 0) {
     document.getElementById("deleteCard").hidden = true;
 }
 </script>

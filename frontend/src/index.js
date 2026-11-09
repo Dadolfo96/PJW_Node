@@ -17,13 +17,13 @@ const response = await fetch(loginForm.action, {
 });
 
 const result = await response.json();
-let ruolo = result.ruolo
+let ruolo_id = result.ruolo_id
 
 if (result.token) {
     sessionStorage.setItem("token", result.token);
-    sessionStorage.setItem("ruolo", result.ruolo);
+    sessionStorage.setItem("ruolo_id", result.ruolo_id);
     sessionStorage.setItem("idUser", result.id);
-    console.log(ruolo);
+    console.log(ruolo_id);
 
     window.location.href = "/profile";
 }

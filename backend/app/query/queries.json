@@ -1,5 +1,5 @@
 {
-  "createUser": "INSERT INTO [PJW_Node].[dbo].[Users] (nome, cognome, mail, username, password, ruolo) VALUES (@nome, @cognome, @mail, @username, @password, @ruolo)",
+  "createUser": "INSERT INTO [PJW_Node].[dbo].[Users] (nome, cognome, mail, username, password, ruolo_id) VALUES (@nome, @cognome, @mail, @username, @password, @ruolo_id)",
   "findUserById": "SELECT * FROM [PJW_Node].[dbo].[Users] WHERE id = @id",
   "findUserByEmail": "SELECT * FROM [PJW_Node].[dbo].[Users] WHERE mail = @mail",
   "findAllUsers": "SELECT * FROM [PJW_Node].[dbo].[Users]",

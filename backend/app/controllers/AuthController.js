@@ -37,7 +37,7 @@ class AuthController {
 
         res.json({
             token: token,
-            ruolo: utente.ruolo,
+            ruolo_id: utente.ruolo_id,
             id: utente.id
         });
     }
